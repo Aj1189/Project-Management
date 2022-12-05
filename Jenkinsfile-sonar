@@ -1,0 +1,18 @@
+pipeline{
+    agent any
+        environment {
+        PATH = "$PATH:/opt/sonar-scanner/bin"
+    }
+    stages{
+
+    stage('SonarQube analysis') {
+//    def scannerHome = tool 'SonarScanner 4.2.0';
+        steps{
+           withSonarQubeEnv('sonarqube-8.9.2') { // If you have configured more than one global server connection, you can specify its name
+           sh "/opt/sonar-scanner/bin/sonar-scanner -Dsonar.projectKey=test -Dsonar.sources=. "
+    }
+  }
+}
+    }      
+
+}
